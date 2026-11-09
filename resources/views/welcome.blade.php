@@ -1,728 +1,371 @@
+@php
+    $site = rtrim(config('app.url'), '/');
+    $seoTitle = 'Prosper Amutah | Software Engineer & QA Engineer';
+    $seoDescription = 'Software engineer and QA engineer building and testing web and mobile apps with Laravel, React, Next.js and Flutter. Available for remote work worldwide.';
+    $seoSkills = ['Software Engineering', 'Full-Stack Web Development', 'Laravel', 'PHP', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Flutter', 'Mobile App Development', 'REST API Development', 'PostgreSQL', 'MySQL', 'Docker', 'Software Quality Assurance', 'API Testing', 'Regression Testing', 'User Acceptance Testing'];
+    $person = [
+        '@type' => 'Person',
+        '@id' => $site.'/#prosper',
+        'name' => 'Prosper Amutah',
+        'url' => $site.'/',
+        'image' => $site.(file_exists(public_path('img/prosper.jpg')) ? '/img/prosper.jpg' : '/img/og.jpg'),
+        'jobTitle' => ['Software Engineer', 'Quality Assurance Engineer'],
+        'description' => $seoDescription,
+        'email' => 'mailto:contact@prosperamutah.online',
+        'telephone' => '+2349077989776',
+        'address' => ['@type' => 'PostalAddress', 'addressCountry' => 'NG'],
+        'alumniOf' => ['@type' => 'CollegeOrUniversity', 'name' => 'Michael Okpara University of Agriculture, Umudike'],
+        'knowsAbout' => $seoSkills,
+        'sameAs' => ['https://linkedin.com/in/prosper-amutah-667530241', 'https://github.com/ethicalbridge7'],
+    ];
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            $person,
+            ['@type' => 'WebSite', '@id' => $site.'/#website', 'url' => $site.'/', 'name' => 'Prosper Amutah', 'inLanguage' => 'en'],
+            ['@type' => 'ProfilePage', 'url' => $site.'/', 'name' => $seoTitle, 'mainEntity' => ['@id' => $site.'/#prosper'], 'isPartOf' => ['@id' => $site.'/#website']],
+        ],
+    ];
+    $services = [
+        ['Full-stack web development', 'Web applications and SaaS products built with Laravel, PHP, React, Next.js, TypeScript and Node.js.'],
+        ['Mobile app development', 'Cross-platform Android and iOS apps built with Flutter and Dart.'],
+        ['API development', 'Secure REST APIs with authentication, rate limiting and payment integration.'],
+        ['Databases and deployment', 'Relational schemas in PostgreSQL and MySQL, row-level security, and Docker.'],
+        ['Software QA testing', 'Manual test plans covering functional, regression, integration and user acceptance testing.'],
+        ['API testing', 'Test cases that verify responses, behavior and failure paths, with defect reports developers can act on.'],
+    ];
+    $skills = [
+        'left' => [
+            ['Web', 'React, Next.js, Tailwind CSS'],
+            ['Mobile', 'Flutter, Dart'],
+            ['Backend', 'Laravel, Node.js, REST APIs'],
+        ],
+        'right' => [
+            ['Languages', 'TypeScript, Python, PHP'],
+            ['Data and delivery', 'PostgreSQL, MySQL, Docker'],
+            ['Testing', 'API, functional, regression, integration, UAT'],
+        ],
+    ];
+    // Drop a picture at the given public path and it replaces the placeholder.
+    $projects = [
+        [
+            'name' => 'JobProfi', 'image' => 'img/projects/jobprofi.jpg', 'url' => 'https://usejobprofi.com',
+            'stack' => ['Laravel', 'MySQL', 'Tailwind CSS', 'Flutter'],
+            'text' => 'A SaaS platform for job seekers, with application tracking, a career coach, a job analyzer and a résumé builder that exports PDFs. Used by more than 70 people, with Flutterwave and Paystack payments.',
+        ],
+        [
+            'name' => 'Voice Of The Youths', 'image' => 'img/projects/voty.jpg', 'url' => 'https://voty.ng',
+            'stack' => ['TypeScript', 'Next.js', 'PostgreSQL', 'Supabase'],
+            'text' => 'An educational video platform for young members, with subscriptions, trivia and voting. 34 REST endpoints, phone login over SMS, rate limiting and row-level security.',
+        ],
+        [
+            'name' => 'DYL Logistics', 'image' => 'img/projects/dyl.jpg', 'url' => 'https://dyllogistics.com',
+            'stack' => ['PHP', 'Laravel', 'Livewire', 'Flux UI', 'MySQL', 'Tailwind CSS', 'JavaScript'],
+            'text' => 'A delivery service across Enugu for food, groceries, pharmacy items, parcels and errands, with verified riders, partner stores and a dashboard that tracks every order.',
+        ],
+        [
+            'name' => 'University Academic Management System', 'image' => 'img/projects/uams.jpg', 'url' => null,
+            'stack' => ['React', 'Laravel', 'PostgreSQL', 'Docker', 'TypeScript'],
+            'text' => 'Enrollment, results and student self-service, shaped by interviews and surveys with more than 100 students and staff. A working prototype, demonstrated to university management.',
+        ],
+    ];
+    $bugs = [
+        ['Typo', '#27408B', 'plain', 56, 150, 'People read what they expect to read, so I write defect reports with exact steps to reproduce.'],
+        ['Wrong date', '#C98A12', 'spots', 66, 140, 'An empty date shows as 1 January 1970. VOTY login codes expire in 10 minutes, so time has to be right.'],
+        ['Off-by-one error', '#0E6B5B', 'band', 60, 165, 'A change upstream quietly breaks something far away. Regression test plans exist to catch it.'],
+        ['Broken layout', '#B80F4A', 'striate', 54, 180, 'Screens have to hold on every browser and phone, especially at checkout.'],
+        ['Exposed admin control', '#2A1238', 'spots', 70, 150, 'Hiding a button is not access control. I enforce roles on the server, in Laravel.'],
+        ['Bad number', '#27408B', 'striate', 64, 160, 'A figure on a screen is only as good as the path it took to get there. I check the path.'],
+        ['Runaway progress', '#0E6B5B', 'spots', 58, 172, 'Idempotent saves on VOTY mean a repeated request can’t push a video past 100%.'],
+    ];
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>prosper amutah— QA · Dev · Security</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Fragment+Mono&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg:         #0b0f0e;
-            --bg2:        #111816;
-            --surface:    #161d1b;
-            --border:     #1f2e2a;
-            --green:      #3fffa2;
-            --green-dim:  #2bbd78;
-            --green-glow: rgba(63,255,162,.18);
-            --amber:      #f5a623;
-            --red:        #ff5f57;
-            --yellow:     #febc2e;
-            --blue:       #28c7f5;
-            --text:       #c8d8d4;
-            --text-dim:   #6a8a82;
-            --text-muted: #3a5550;
-            --font-mono:  'JetBrains Mono', 'Fragment Mono', monospace;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font-mono);
-            font-size: 14px;
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* ── Scanline overlay ─────────────────────────── */
-        body::before {
-            content: '';
-            position: fixed; inset: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0,0,0,.07) 2px,
-                rgba(0,0,0,.07) 4px
-            );
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* ── Nav ─────────────────────────────────────── */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 48px;
-            height: 56px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(11,15,14,.85);
-            backdrop-filter: blur(12px);
-            z-index: 100;
-        }
-
-        .nav-logo {
-            display: flex; align-items: center; gap: 10px;
-            color: var(--green);
-            font-size: 15px; font-weight: 700; text-decoration: none;
-        }
-        .nav-logo span.prompt { opacity: .5; font-weight: 300; }
-        .nav-logo .version {
-            font-size: 11px; color: var(--text-dim);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 2px 7px; border-radius: 4px;
-        }
-
-        .nav-links { display: flex; gap: 32px; }
-        .nav-links a {
-            color: var(--text-dim); text-decoration: none;
-            font-size: 13px; transition: color .2s;
-        }
-        .nav-links a:hover { color: var(--green); }
-
-        .nav-actions { display: flex; gap: 12px; align-items: center; }
-        .btn-ghost {
-            display: flex; align-items: center; gap: 6px;
-            padding: 7px 14px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text-dim);
-            font-family: var(--font-mono); font-size: 12px;
-            border-radius: 6px; cursor: pointer; text-decoration: none;
-            transition: border-color .2s, color .2s;
-        }
-        .btn-ghost:hover { border-color: var(--green); color: var(--green); }
-        .btn-ghost svg { width: 14px; height: 14px; }
-
-        /* ── Hero ─────────────────────────────────────── */
-        .hero {
-            padding: 140px 48px 80px;
-            display: flex; flex-direction: column; align-items: center;
-            text-align: center; gap: 0;
-            position: relative;
-        }
-
-        /* Glow blob behind title */
-        .hero::after {
-            content: '';
-            position: absolute; top: 120px; left: 50%;
-            transform: translateX(-50%);
-            width: 600px; height: 300px;
-            background: radial-gradient(ellipse, var(--green-glow) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-label {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 5px 14px; border-radius: 99px;
-            font-size: 12px; color: var(--green-dim);
-            margin-bottom: 28px;
-        }
-        .hero-label::before { content: '●'; font-size: 8px; animation: blink 1.2s step-end infinite; }
-        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
-
-        h1 {
-            font-size: clamp(56px, 8vw, 96px);
-            font-weight: 700; line-height: 1.0;
-            color: var(--green);
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            position: relative; z-index: 1;
-        }
-
-        .hero-tagline {
-            font-size: clamp(13px, 1.6vw, 16px);
-            color: var(--text-dim); letter-spacing: .5px;
-            margin-bottom: 40px; max-width: 520px;
-        }
-
-        /* Feature pills */
-        .hero-features {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 12px; margin-bottom: 40px;
-        }
-        .feature-pill {
-            display: flex; align-items: center; gap: 7px;
-            color: var(--text-dim); font-size: 13px;
-        }
-        .feature-pill::before { content: '>'; color: var(--green); }
-
-        /* Install bar */
-        .install-bar {
-            display: flex; align-items: center; gap: 0;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px; overflow: hidden;
-            margin-bottom: 72px;
-        }
-        .install-label {
-            padding: 11px 16px;
-            color: var(--text-dim); font-size: 13px;
-            border-right: 1px solid var(--border);
-        }
-        .install-cmd {
-            padding: 11px 20px;
-            color: var(--green); font-size: 13px;
-            letter-spacing: .3px;
-        }
-        .copy-btn {
-            padding: 11px 14px;
-            border: none; border-left: 1px solid var(--border);
-            background: transparent; color: var(--text-muted);
-            cursor: pointer; transition: color .2s, background .2s;
-            font-size: 15px;
-        }
-        .copy-btn:hover { background: var(--border); color: var(--green); }
-
-        /* ── Terminal / Code mockup ───────────────────── */
-        .editor-wrap {
-            width: 100%; max-width: 900px;
-            border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 0 1px var(--border);
-        }
-
-        .editor-titlebar {
-            display: flex; align-items: center; gap: 10px;
-            padding: 10px 16px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-        }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.r { background: var(--red); }
-        .dot.y { background: var(--yellow); }
-        .dot.g { background: #29c842; }
-        .editor-title { margin-left: 8px; font-size: 12px; color: var(--text-dim); }
-
-        .editor-body {
-            display: grid; grid-template-columns: 220px 1fr;
-            height: 400px;
-        }
-
-        /* sidebar */
-        .editor-sidebar {
-            background: var(--bg2);
-            border-right: 1px solid var(--border);
-            padding: 12px 0; font-size: 12px;
-        }
-        .sidebar-title {
-            padding: 4px 14px 10px;
-            color: var(--text-muted); font-size: 11px; letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .sidebar-item {
-            padding: 3px 14px;
-            color: var(--text-dim); cursor: pointer;
-            display: flex; align-items: center; justify-content: space-between;
-            transition: background .15s;
-        }
-        .sidebar-item:hover { background: var(--border); }
-        .sidebar-item.active { color: var(--green); background: rgba(63,255,162,.06); }
-        .sidebar-item .size { color: var(--text-muted); font-size: 11px; }
-        .sidebar-folder { padding-left: 20px; }
-        .sidebar-chevron { font-size: 10px; color: var(--text-muted); margin-right: 6px; }
-
-        /* code area */
-        .editor-code {
-            background: var(--bg);
-            overflow: auto; padding: 16px 0;
-            font-size: 12.5px; line-height: 1.75;
-        }
-        .code-line {
-            display: flex; gap: 0;
-            padding: 0 20px;
-        }
-        .code-line:hover { background: rgba(255,255,255,.02); }
-        .ln {
-            min-width: 32px; text-align: right;
-            color: var(--text-muted); margin-right: 20px;
-            user-select: none;
-        }
-        /* syntax colors */
-        .k  { color: #c792ea; } /* keyword */
-        .kw { color: var(--blue); } /* special keyword */
-        .s  { color: var(--amber); } /* string */
-        .c  { color: var(--text-muted); font-style: italic; } /* comment */
-        .t  { color: var(--green); } /* type */
-        .f  { color: #82aaff; } /* function */
-        .p  { color: var(--text); } /* plain */
-        .n  { color: #f78c6c; } /* number */
-        .g  { color: var(--green-dim); } /* green accent */
-
-        /* ── Sections ─────────────────────────────────── */
-        section {
-            padding: 100px 48px;
-            max-width: 1100px; margin: 0 auto;
-        }
-        .section-title {
-            font-size: 11px; letter-spacing: 2px;
-            color: var(--green); text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-        .section-title::before { content: '// '; opacity: .5; }
-        h2 {
-            font-size: clamp(28px, 4vw, 44px);
-            font-weight: 700; color: #e8f5f1;
-            margin-bottom: 48px; line-height: 1.2;
-        }
-
-        /* Skills grid */
-        .skills-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .skills-grid { grid-template-columns: 1fr; }
-            nav { padding: 0 20px; }
-            .nav-links { display: none; }
-            .hero { padding: 100px 20px 60px; }
-            section { padding: 60px 20px; }
-            .editor-body { grid-template-columns: 1fr; }
-            .editor-sidebar { display: none; }
-        }
-
-        .skill-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px; padding: 24px;
-            transition: border-color .2s, transform .2s;
-            cursor: default;
-        }
-        .skill-card:hover {
-            border-color: var(--green);
-            transform: translateY(-3px);
-        }
-        .skill-card-icon {
-            font-size: 22px; margin-bottom: 14px;
-        }
-        .skill-card h3 {
-            font-size: 14px; color: var(--green);
-            margin-bottom: 8px;
-        }
-        .skill-card p { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
-        .skill-tags {
-            display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px;
-        }
-        .tag {
-            font-size: 11px; padding: 2px 8px;
-            background: var(--bg2); border: 1px solid var(--border);
-            border-radius: 4px; color: var(--text-dim);
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-        }
-        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
-
-        .project-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px; padding: 28px;
-            position: relative; overflow: hidden;
-            transition: border-color .25s;
-        }
-        .project-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--green), transparent);
-            opacity: 0; transition: opacity .25s;
-        }
-        .project-card:hover { border-color: var(--green-dim); }
-        .project-card:hover::before { opacity: 1; }
-
-        .project-card .badge {
-            display: inline-block;
-            font-size: 10px; padding: 2px 8px;
-            border-radius: 4px; margin-bottom: 14px;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        .badge.qa { background: rgba(40,199,245,.1); color: var(--blue); border: 1px solid rgba(40,199,245,.2); }
-        .badge.dev { background: rgba(63,255,162,.1); color: var(--green); border: 1px solid rgba(63,255,162,.2); }
-        .badge.sec { background: rgba(245,166,35,.1); color: var(--amber); border: 1px solid rgba(245,166,35,.2); }
-
-        .project-card.featured {
-            grid-column: 1 / -1;
-            display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px;
-            align-items: stretch;
-        }
-        @media (max-width: 768px) { .project-card.featured { grid-template-columns: 1fr; } }
-        .project-preview {
-            position: relative;
-            border: 1px solid var(--border);
-            border-radius: 8px; overflow: hidden;
-            background: var(--bg2);
-            min-height: 280px;
-        }
-        .project-preview { display: block; text-decoration: none; color: inherit; }
-        .project-preview img {
-            width: 100%; height: auto;
-            display: block;
-            background: #fff;
-        }
-        .project-preview iframe {
-            width: 100%; height: 100%;
-            min-height: 280px;
-            border: 0;
-            display: block;
-            background: #fff;
-        }
-        .project-preview-bar {
-            display: flex; align-items: center; gap: 6px;
-            padding: 8px 12px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            font-size: 11px; color: var(--text-dim);
-        }
-        .project-preview-bar .dot { width: 9px; height: 9px; }
-        .project-preview-bar .url {
-            margin-left: 8px; color: var(--text-muted);
-        }
-
-        .project-card h3 { font-size: 15px; color: #e8f5f1; margin-bottom: 8px; }
-        .project-card p  { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
-        .project-links {
-            display: flex; gap: 16px; margin-top: 20px;
-        }
-        .project-links a {
-            font-size: 12px; color: var(--text-dim);
-            text-decoration: none; display: flex; align-items: center; gap: 5px;
-            transition: color .2s;
-        }
-        .project-links a:hover { color: var(--green); }
-
-        /* ── Contact / CTA ─────────────────────────────── */
-        .cta {
-            text-align: center; padding: 100px 48px;
-            border-top: 1px solid var(--border);
-        }
-        .cta h2 { font-size: clamp(28px,4vw,44px); color: #e8f5f1; margin-bottom: 12px; }
-        .cta p  { color: var(--text-dim); margin-bottom: 36px; font-size: 14px; }
-
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 12px 28px;
-            background: var(--green); color: #0b0f0e;
-            font-family: var(--font-mono); font-size: 13px; font-weight: 700;
-            border-radius: 7px; text-decoration: none; border: none; cursor: pointer;
-            transition: filter .2s, transform .2s;
-        }
-        .btn-primary:hover { filter: brightness(1.15); transform: translateY(-2px); }
-
-        .social-row {
-            display: flex; justify-content: center; gap: 20px; margin-top: 28px;
-        }
-        .social-row a {
-            color: var(--text-muted); text-decoration: none; font-size: 12px;
-            transition: color .2s;
-        }
-        .social-row a:hover { color: var(--green); }
-
-        /* ── Footer ────────────────────────────────────── */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 24px 48px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 12px; color: var(--text-muted);
-        }
-
-        /* ── Typewriter cursor ─────────────────────────── */
-        .cursor {
-            display: inline-block; width: 3px; height: 1em;
-            background: var(--green);
-            vertical-align: middle; margin-left: 2px;
-            animation: blink .9s step-end infinite;
-        }
-
-        /* ── Animations ────────────────────────────────── */
-        .fade-up {
-            opacity: 0; transform: translateY(24px);
-            animation: fadeUp .6s ease forwards;
-        }
-        .fade-up:nth-child(2) { animation-delay: .1s; }
-        .fade-up:nth-child(3) { animation-delay: .2s; }
-        .fade-up:nth-child(4) { animation-delay: .3s; }
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $seoTitle }}</title>
+    <meta name="description" content="{{ $seoDescription }}">
+    <meta name="keywords" content="Prosper Amutah, software engineer, software developer, full-stack developer, QA engineer, software tester, Laravel developer, React developer, Next.js developer, Flutter developer, API testing, hire remote software engineer">
+    <meta name="author" content="Prosper Amutah">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="theme-color" content="#2A1238">
+    <link rel="canonical" href="{{ $site }}/">
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Prosper Amutah">
+    <meta property="og:title" content="{{ $seoTitle }}">
+    <meta property="og:description" content="{{ $seoDescription }}">
+    <meta property="og:url" content="{{ $site }}/">
+    <meta property="og:image" content="{{ $site }}/img/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Prosper Amutah, Software Engineer and QA Engineer">
+    <meta property="profile:first_name" content="Prosper">
+    <meta property="profile:last_name" content="Amutah">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $seoTitle }}">
+    <meta name="twitter:description" content="{{ $seoDescription }}">
+    <meta name="twitter:image" content="{{ $site }}/img/og.jpg">
+    <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=alegreya:400,400i,500,700|besley:500,800,900" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body x-data="page">
 
-<!-- ─── NAV ──────────────────────────────────────────── -->
-<nav>
-    <a href="#" class="nav-logo">
-        <span class="prompt">>_</span> prosper
-        <span class="version">v1.0.0</span>
-    </a>
-    <div class="nav-links">
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </div>
-    <div class="nav-actions">
-        <a href="https://www.linkedin.com/in/prosper-amutah-667530241" class="btn-ghost" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            LinkedIn
-        </a>
-        <a href="https://instagram.com/prosper_chidiegwu" class="btn-ghost" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            Instagram
-        </a>
-    
-    </div>
-</nav>
+<flux:brand class="site-logo" href="/" logo="/favicon.svg" alt="Prosper Amutah, home" />
 
-<!-- ─── HERO ──────────────────────────────────────────── -->
-<main class="hero">
-    <div class="hero-label fade-up">Available for work</div>
+<flux:navbar class="site-nav" aria-label="Sections">
+    <flux:navbar.item href="#story">Story</flux:navbar.item>
+    <flux:navbar.item href="#projects">Projects</flux:navbar.item>
+    <flux:navbar.item href="#contact">Contact</flux:navbar.item>
+    <flux:navbar.item x-on:click="openResume()">Resume</flux:navbar.item>
+    <flux:navbar.item x-on:click="openIdentify()">Identify bugs</flux:navbar.item>
+    <flux:navbar.item x-on:click="openSim()">Simulation</flux:navbar.item>
+</flux:navbar>
 
-    <h1 class="fade-up">prosper<span class="cursor"></span></h1>
+<flux:dropdown class="site-menu" position="bottom" align="end">
+    <flux:button class="site-menu-button" icon="bars-2">Menu</flux:button>
+    <flux:navmenu>
+        <flux:navmenu.item href="#story">Story</flux:navmenu.item>
+        <flux:navmenu.item href="#projects">Projects</flux:navmenu.item>
+        <flux:navmenu.item href="#contact">Contact</flux:navmenu.item>
+        <flux:navmenu.item x-on:click="openResume()">Resume</flux:navmenu.item>
+        <flux:navmenu.item x-on:click="openIdentify()">Identify bugs</flux:navmenu.item>
+        <flux:navmenu.item x-on:click="openSim()">Simulation</flux:navmenu.item>
+    </flux:navmenu>
+</flux:dropdown>
 
-    <p class="hero-tagline fade-up">
-        A software engineer who builds it, breaks it, and secures it.
-    </p>
-
-    <div class="hero-features fade-up">
-        <span class="feature-pill">QA Engineer</span>
-        <span class="feature-pill">Software Developer</span>
-        <span class="feature-pill">Cybersecurity</span>
-        <span class="feature-pill">Laravel · PHP</span>
-        <span class="feature-pill">Penetration Testing</span>
+<header class="hero">
+    <div class="intro">
+        <h1 class="name">Prosper Amutah <span>Software Engineer &amp; QA Engineer</span></h1>
+        <p class="tagline">I build software and test it before your users have to.</p>
+        <p class="lede">I’m a full-stack software engineer and QA tester based in Nigeria, working remotely with teams worldwide. I design and ship web and mobile products, then test them the way a stranger would use them.</p>
+        <x-contact-links />
     </div>
 
-    <div class="install-bar fade-up">
-        <span class="install-label">Contact:</span>
-        <span class="install-cmd">prosperch@proton.me</span>
-        <button class="copy-btn" onclick="navigator.clipboard.writeText('prosperch@proton.me');this.textContent='✓'" title="Copy email">⎘</button>
-    </div>
-
-    <!-- Code editor mockup -->
-    <div class="editor-wrap fade-up">
-        <div class="editor-titlebar">
-            <div class="dot r"></div>
-            <div class="dot y"></div>
-            <div class="dot g"></div>
-            <span class="editor-title">portfolio.test.ts</span>
+    <figure class="plate">
+        @foreach ($skills as $side => $notes)
+            <dl class="notes-col {{ $side }}">
+                @foreach ($notes as [$title, $detail])
+                    <div class="note" style="--i: {{ $loop->index * 2 + ($side === 'right' ? 1 : 0) }}"><dt>{{ $title }}</dt><dd>{{ $detail }}</dd></div>
+                @endforeach
+            </dl>
+        @endforeach
+        <div class="portrait">
+            @if (file_exists(public_path('img/prosper.jpg')))
+                <img src="{{ asset('img/prosper.jpg') }}" alt="Portrait of Prosper Amutah">
+            @else
+                <span class="monogram" aria-hidden="true">PA</span>
+            @endif
+            <svg class="pinned" viewBox="-130 -190 260 370" aria-hidden="true"><x-beetle /></svg>
         </div>
-        <div class="editor-body">
-            <div class="editor-sidebar">
-                <div class="sidebar-title">Explorer</div>
-                <div class="sidebar-item active"><span><span class="sidebar-chevron">▼</span> portfolio</span><span class="size">8 items</span></div>
-                <div class="sidebar-item sidebar-folder"><span><span class="sidebar-chevron">▶</span> .tests</span></div>
-                <div class="sidebar-item sidebar-folder"><span><span class="sidebar-chevron">▶</span> security</span></div>
-                <div class="sidebar-item sidebar-folder"><span><span class="sidebar-chevron">▶</span> src</span></div>
-                <div class="sidebar-item sidebar-folder">portfolio.test.ts<span class="size">4.2 KB</span></div>
-                <div class="sidebar-item sidebar-folder">README.md<span class="size">1.1 KB</span></div>
-            </div>
-            <div class="editor-code">
-                <div class="code-line"><span class="ln">1</span><span class="c">// QA Engineer · Developer · Security Researcher</span></div>
-                <div class="code-line"><span class="ln">2</span></div>
-                <div class="code-line"><span class="ln">3</span><span class="k">import</span> <span class="p">{ describe, test, expect } </span><span class="k">from</span> <span class="s">'@testing-library'</span><span class="p">;</span></div>
-                <div class="code-line"><span class="ln">4</span><span class="k">import</span> <span class="p">{ </span><span class="t">Developer</span><span class="p"> } </span><span class="k">from</span> <span class="s">'./me'</span><span class="p">;</span></div>
-                <div class="code-line"><span class="ln">5</span></div>
-                <div class="code-line"><span class="ln">6</span><span class="f">describe</span><span class="p">(</span><span class="s">'prosper'</span><span class="p">, () => {</span></div>
-                <div class="code-line"><span class="ln">7</span></div>
-                <div class="code-line"><span class="ln">8</span><span class="p">  </span><span class="f">test</span><span class="p">(</span><span class="s">'builds reliable software'</span><span class="p">, () => {</span></div>
-                <div class="code-line"><span class="ln">9</span><span class="p">    </span><span class="k">const</span><span class="p"> dev = </span><span class="k">new</span> <span class="t">Developer</span><span class="p">();</span></div>
-                <div class="code-line"><span class="ln">10</span><span class="p">    </span><span class="f">expect</span><span class="p">(dev.skills).toContain(</span><span class="s">'Laravel'</span><span class="p">);</span></div>
-                <div class="code-line"><span class="ln">11</span><span class="p">    </span><span class="f">expect</span><span class="p">(dev.passion).toBe(</span><span class="kw">true</span><span class="p">);</span></div>
-                <div class="code-line"><span class="ln">12</span><span class="p">  });</span></div>
-                <div class="code-line"><span class="ln">13</span></div>
-                <div class="code-line"><span class="ln">14</span><span class="p">  </span><span class="f">test</span><span class="p">(</span><span class="s">'finds bugs before users do'</span><span class="p">, () => {</span></div>
-                <div class="code-line"><span class="ln">15</span><span class="p">    </span><span class="k">const</span><span class="p"> result = dev.</span><span class="f">runQA</span><span class="p">(</span><span class="s">'any system'</span><span class="p">);</span></div>
-                <div class="code-line"><span class="ln">16</span><span class="p">    </span><span class="f">expect</span><span class="p">(result.bugs).</span><span class="f">toHaveLength</span><span class="p">(</span><span class="n">0</span><span class="p">);</span></div>
-                <div class="code-line"><span class="ln">17</span><span class="p">  });</span></div>
-                <div class="code-line"><span class="ln">18</span></div>
-                <div class="code-line"><span class="ln">19</span><span class="p">  </span><span class="f">test</span><span class="p">(</span><span class="s">'secures what was built'</span><span class="p">, () => {</span></div>
-                <div class="code-line"><span class="ln">20</span><span class="p">    </span><span class="f">expect</span><span class="p">(dev.</span><span class="f">penTest</span><span class="p">()).</span><span class="f">toPass</span><span class="p">();</span></div>
-                <div class="code-line"><span class="ln">21</span><span class="p">  });</span></div>
-                <div class="code-line"><span class="ln">22</span></div>
-                <div class="code-line"><span class="ln">23</span><span class="g">  ✓ 3 tests passed — 0 failed</span></div>
-                <div class="code-line"><span class="ln">24</span><span class="p">});</span></div>
-            </div>
-        </div>
-    </div>
+        <figcaption>Fig. 1. The software engineer, with tools.</figcaption>
+    </figure>
+</header>
+
+<main id="story" class="story" x-ref="story">
+    <svg class="trail" aria-hidden="true"><path x-ref="trail" /></svg>
+    <svg class="walker" x-ref="walker" viewBox="-130 -190 260 370" aria-hidden="true"><x-beetle /></svg>
+
+    <x-chapter where="Michael Okpara University of Agriculture" place="Umudike, Abia State" when="December 2019 to October 2024">
+        <p class="chapter-no">Chapter 1</p>
+        <h2>It started with learning how the machine thinks.</h2>
+        <p>I studied Computer Science at Michael Okpara University of Agriculture and finished in October 2024 with a 3.92 GPA.</p>
+    </x-chapter>
+
+    <x-chapter class="drift" where="Berge Technology Hub" place="Umuahia, Abia State" when="June 2023 to October 2024">
+        <p class="chapter-no">Chapter 2</p>
+        <h2>Then real people had to get through checkout.</h2>
+        <p>While still studying, I joined Berge Technology Hub and built features for an e-commerce platform in Laravel and MySQL. Checkout speed and user engagement improved by 30%.</p>
+        <p>I delivered the interface across browsers and phones in Bootstrap, Tailwind CSS and TypeScript.</p>
+        <p>I also learned the habit of Git-based code review: someone else reads your work before your users do.</p>
+    </x-chapter>
+
+    <x-chapter where="University Academic Management System" place="React, Laravel, PostgreSQL, Docker, TypeScript" when="Over 100 students and staff consulted">
+        <p class="chapter-no">Chapter 3</p>
+        <h2>Before writing the code, I asked a hundred people.</h2>
+        <p>Students and staff told me, through interviews and surveys, how academic records really moved through a university. From that I designed and built a working prototype: enrollment, self-service for students, dashboards for administrators, and uploading and editing of results.</p>
+        <p>Students sign in with their matriculation numbers, and I demonstrated the system to university management, using institutional data, during their workflow evaluation.</p>
+    </x-chapter>
+
+    <x-chapter class="drift" where="JobProfi" place="Laravel, MySQL, Tailwind CSS, Flutter" when="Used by more than 70 people">
+        <p class="chapter-no">Chapter 4</p>
+        <h2>Next I built a workspace for job seekers.</h2>
+        <p>JobProfi tracks applications and manages résumés. It has a career coach, interview preparation, and a job analyzer that compares your qualifications with what a role asks for. Its résumé builder previews live and exports a PDF in one click.</p>
+        <p>Automated follow-up emails increased engagement by 35%. Payments run through Flutterwave and Paystack, and there is a Flutter mobile app.</p>
+    </x-chapter>
+
+    <x-chapter where="Nu3careplus LTD, remote, since December 2024" place="iHealth Wellness Foundation, New York" when="February 2025 to January 2026">
+        <p class="chapter-no">Chapter 5</p>
+        <h2>So I crossed to the other side of the bug report.</h2>
+        <p>At Nu3careplus I design test cases for applications and APIs, checking responses and behavior, and reporting what fails. At iHealth Wellness Foundation I wrote and ran manual test plans for web and mobile apps: functional, regression, integration and UAT.</p>
+        <p>The teams sat across time zones, so a bug report had to make sense to someone who was asleep when I filed it. Release schedules depended on that.</p>
+    </x-chapter>
+
+    <x-chapter class="drift" where="Voice Of The Youths" place="TypeScript, Next.js, PostgreSQL, Supabase" when="34 endpoints, 18 migrations">
+        <p class="chapter-no">Chapter 6</p>
+        <h2>After that, I built as if I would be the one attacking it.</h2>
+        <p>VOTY is an educational platform where young members subscribe to videos, answer trivia on what they watched, and vote. I shipped its 34 REST endpoints.</p>
+        <p>Login is by phone, through a Nigerian carrier SMS gateway. Codes die after 10 minutes. A sliding-window limiter allows 5 code requests a minute and 10 verification attempts in 5 minutes. Row-level security keeps each member’s progress, votes and profile to themselves.</p>
+        <p>Playback resumes where you left off and completes at 90% watched.</p>
+    </x-chapter>
+
+    <x-chapter where="Havilla University" place="Nde-Ikom, Cross River State" when="December 2025 to October 2026">
+        <p class="chapter-no">Chapter 7</p>
+        <h2>And then I stood in front of a class and taught it.</h2>
+        <p>As lecturer and Software Engineering Department Coordinator, I taught undergraduate Computer Science, Software Engineering and Cyber Security. I wrote the lectures, practicals and examinations, and supported curriculum development and academic planning.</p>
+        <p>The lesson I most wanted to pass on: assume it’s broken, then find out how.</p>
+    </x-chapter>
 </main>
 
-<!-- ─── SKILLS ────────────────────────────────────────── -->
-<section id="skills">
-    <p class="section-title">expertise</p>
-    <h2>What I do.</h2>
-    <div class="skills-grid">
-        <div class="skill-card">
-            <div class="skill-card-icon">🧪</div>
-            <h3>QA Engineering</h3>
-            <p>I break things professionally — finding edge cases, writing test suites, and making sure nothing ships that shouldn't.</p>
-            <div class="skill-tags">
-                <span class="tag">Selenium</span>
-                <span class="tag">Cypress</span>
-                <span class="tag">PHPUnit</span>
-                <span class="tag">Postman</span>
+<section id="projects" class="projects" aria-labelledby="projects-title">
+    <h2 id="projects-title">Things I’ve built</h2>
+    @foreach ($projects as $project)
+        <article class="project">
+            <div class="shot">
+                @if (file_exists(public_path($project['image'])))
+                    <img src="{{ asset($project['image']) }}" alt="Screenshot of {{ $project['name'] }}" loading="lazy">
+                @else
+                    <span aria-hidden="true">{{ $project['name'] }}</span>
+                @endif
             </div>
-        </div>
-        <div class="skill-card">
-            <div class="skill-card-icon">⚡</div>
-            <h3>Software Development</h3>
-            <p>Building full-stack applications with clean architecture, good patterns, and code that's actually maintainable.</p>
-            <div class="skill-tags">
-                <span class="tag">Laravel</span>
-                <span class="tag">PHP</span>
-                <span class="tag">Python</span>
-                <span class="tag">React</span>
-                <span class="tag">Livewire</span>
-                <span class="tag">MySQL</span>
+            <div class="project-text">
+                <h3>{{ $project['name'] }}</h3>
+                <p>{{ $project['text'] }}</p>
+                @if ($project['stack'])
+                    <div class="stack">
+                        @foreach ($project['stack'] as $tool)
+                            <flux:badge size="sm" class="tool">{{ $tool }}</flux:badge>
+                        @endforeach
+                    </div>
+                @endif
+                @if ($project['url'])
+                    <flux:button icon:trailing="arrow-top-right-on-square" href="{{ $project['url'] }}" target="_blank" rel="noopener">Visit site</flux:button>
+                @endif
             </div>
-        </div>
-        <div class="skill-card">
-            <div class="skill-card-icon">🔐</div>
-            <h3>Cybersecurity</h3>
-            <p>Penetration testing, vulnerability assessments, and helping organizations understand and fix their attack surface.</p>
-            <div class="skill-tags">
-                <span class="tag">Burp Suite</span>
-                <span class="tag">Kali Linux</span>
-                <span class="tag">OWASP</span>
-                <span class="tag">Nmap</span>
-            </div>
-        </div>
-        <div class="skill-card">
-            <div class="skill-card-icon">🤖</div>
-            <h3>AI & Machine Learning</h3>
-            <p>Integrating AI into real products — LLM-powered features, intelligent automation, and Python-based ML workflows.</p>
-            <div class="skill-tags">
-                <span class="tag">Python</span>
-                <span class="tag">OpenAI</span>
-                <span class="tag">Claude API</span>
-                <span class="tag">LangChain</span>
-            </div>
-        </div>
-    </div>
+        </article>
+    @endforeach
 </section>
 
-<!-- ─── PROJECTS ──────────────────────────────────────── -->
-<section id="projects">
-    <p class="section-title">work</p>
-    <h2>Selected Projects.</h2>
-    <div class="projects-grid">
-        <div class="project-card featured">
-            <div>
-                <span class="badge dev">FEATURED · DEV</span>
-                <h3>UseJobProfi</h3>
-                <p>An AI-powered career platform with an <strong>AI Cover Letter Builder</strong> and <strong>AI Job Scan</strong> that matches resumes against job descriptions and generates tailored applications. Built end-to-end with Laravel.</p>
-                <div class="skill-tags">
-                    <span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">AI</span><span class="tag">MySQL</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://usejobprofi.com" target="_blank" rel="noopener">⇗ Visit usejobprofi.com</a>
-                </div>
-            </div>
-            <a class="project-preview" href="https://usejobprofi.com" target="_blank" rel="noopener" aria-label="Open usejobprofi.com">
-                <div class="project-preview-bar">
-                    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-                    <span class="url">usejobprofi.com</span>
-                </div>
-                <img src="{{ asset('img/img.png') }}" alt="UseJobProfi preview" loading="lazy" />
-            </a>
-        </div>
-        <div class="project-card">
-            <span class="badge qa">QA</span>
-            <h3>Test Suite</h3>
-            <p>End-to-end testing for iHealth Wellness and Foundation inc.</p>
-            <div class="skill-tags">
-                <span class="tag">manual</span><span class="tag">CI/CD</span><span class="tag">STLC</span>
-            </div>
-            <div class="project-links">
-                <a href="https://ihealthwellness.org">⇗ Live Demo</a>
-                <!-- <a href="#">⎌ GitHub</a> -->
-            </div>
-        </div>
-        <div class="project-card">
-            <span class="badge dev">DEV</span>
-            <h3>Job Tracker</h3>
-            <p>A job tracking application built with Laravel and Livewire. Helps job seekers manage their applications and track their progress.</p>
-            <div class="skill-tags">
-                <span class="tag">Laravel</span><span class="tag">Flux</span><span class="tag">Livewire</span>
-            </div>
-            <div class="project-links">
-                <a href="https://usejobprofi.com">⇗ Live Demo</a>
-                <!-- <a href="#">⎌ GitHub</a> -->
-            </div>
-        </div>
-        <div class="project-card">
-            <span class="badge dev">Dev</span>
-            <h3>Voice of the youths (Voty)</h3>
-            <p>A platform for youth engagement and advocacy in Nigeria. Built with and React.</p>
-            <div class="skill-tags">
-                <span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">supabase</span>
-            </div>
-            <div class="project-links">
-                <a href="https://voty.ng">⇗ Case Study</a>
-                <!-- <a href="#">⎌ GitHub</a> -->
-            </div>
-        </div>
-        <div class="project-card">
-            <span class="badge dev">DEV</span>
-            <h3>CRM Tool</h3>
-            <p>A customer relationship management tool built with Laravel and Livewire. Streamlines client interactions and improves team collaboration.</p>
-            <div class="skill-tags">
-                <span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">MySQL</span>
-            </div>
-            <div class="project-links">
-                <a href="#">⇗ Live Demo</a>
-                <a href="#">⎌ GitHub</a>
-            </div>
-        </div>
-    </div>
+<section id="services" class="services" aria-labelledby="services-title">
+    <h2 id="services-title">What you can hire me for</h2>
+    <p class="services-intro">I work remotely with startups, companies and universities in any time zone.</p>
+    <dl>
+        @foreach ($services as [$service, $detail])
+            <div><dt>{{ $service }}</dt><dd>{{ $detail }}</dd></div>
+        @endforeach
+    </dl>
 </section>
 
-<!-- ─── CTA ───────────────────────────────────────────── -->
-<div id="contact" class="cta">
-    <h2>Let's build something<br>worth testing.</h2>
-    <p>Open to freelance, contracts, and full-time roles.</p>
-    <a href="mailto:prosperch@proton.me" class="btn-primary">
-        > say_hello()
-    </a>
-    <div class="social-row">
-        <a href="https://www.linkedin.com/in/prosper-amutah-667530241" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
-        <a href="https://usejobprofi.com" target="_blank" rel="noopener">Resume.pdf</a>
+<section id="bugs" class="drawer" aria-labelledby="drawer-title">
+    <h2 id="drawer-title">Bugs I’ve learned to look for</h2>
+    <ul class="specimens">
+        @foreach ($bugs as [$plain, $color, $pattern, $w, $l, $note])
+            <li>
+                <svg viewBox="-130 -190 260 370" aria-hidden="true"><x-beetle :w="$w" :l="$l" :color="$color" :pattern="$pattern" /></svg>
+                <div>
+                    <h3>{{ $plain }}</h3>
+                    <p>{{ $note }}</p>
+                </div>
+            </li>
+        @endforeach
+        <li class="eighth"><a href="mailto:contact@prosperamutah.online?subject=Found%20a%20bug">Found another one on this site? Tell me.</a></li>
+    </ul>
+
+    <div id="contact" class="hire">
+        <p>If you need software that’s built well and tested properly, write to me.</p>
+        <x-contact-links />
     </div>
-</div>
 
-<!-- ─── FOOTER ────────────────────────────────────────── -->
-<footer>
-    <span>prosper © 2026</span>
-    <span>Built with Laravel + Flux </span>
-</footer>
+    <dl class="cv-notes">
+        <div><dt>Education</dt><dd>BSc Computer Science, Michael Okpara University of Agriculture, 2024. GPA 3.92.</dd></div>
+        <div><dt>Teaching</dt><dd>Computer Science, Software Engineering and Cyber Security at Havilla University.</dd></div>
+        <div><dt>Certificates</dt><dd>Software Engineering Job Simulation, Wells Fargo on Forage, September 2025. Software Development Job Simulation, Datacom on Forage, September 2025.</dd></div>
+        <div><dt>Research interests</dt><dd>Machine learning, AI and security.</dd></div>
+    </dl>
+</section>
 
-<script>
-    // Smooth reveal on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.style.opacity = '1';
-                e.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
+<flux:modal name="identify" class="identify-modal">
+    <flux:heading size="xl" level="2">Identify the bugs</flux:heading>
+    <flux:text class="identify-intro">This checkout has four bugs. Click each part you think is broken.</flux:text>
+    <x-bug-hunt />
+    <p class="hunt-done" x-show="huntDone">All four fixed. These were planted, but it’s how I report the real ones.</p>
+</flux:modal>
 
-    document.querySelectorAll('.skill-card, .project-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity .5s ease, transform .5s ease';
-        observer.observe(el);
-    });
-</script>
+<flux:modal name="simulate" class="sim-modal">
+    <flux:heading size="xl" level="2">Hire me: a simulation</flux:heading>
+    <flux:text class="identify-intro">You play the client. Sample project, sample timeline, computer-generated client photo.</flux:text>
 
+    <ol class="sim-steps">
+        <template x-for="(name, i) in stages" x-bind:key="name">
+            <li x-bind:class="{ now: i === stage, done: i < stage }" x-text="name"></li>
+        </template>
+    </ol>
+
+    <div class="sim-talk" x-show="stage < 2">
+        <div class="sim-people">
+            <x-sim-person image="img/sim/client.jpg" initial="A" name="Ani" role="Sample client" />
+            <x-sim-person image="img/prosper.jpg" initial="P" name="Prosper" role="Engineer" />
+        </div>
+        <div class="sim-thread">
+            <div class="sim-chat">
+                <template x-for="(message, i) in messages" x-bind:key="i">
+                    <p x-bind:class="message.who" x-text="message.text"></p>
+                </template>
+            </div>
+            <div class="sim-choices">
+                <template x-for="option in options" x-bind:key="option.label">
+                    <flux:button class="sim-choice" x-on:click="choose(option)"><span x-text="option.label"></span></flux:button>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <div class="sim-build" x-show="stage === 2">
+        <ul class="sim-tasks">
+            <template x-for="(task, i) in project?.tasks ?? []" x-bind:key="task.name">
+                <li x-bind:class="{ done: i < taskIndex, now: i === taskIndex }" x-text="task.name"></li>
+            </template>
+        </ul>
+        <pre class="sim-editor"><code x-text="code"></code></pre>
+    </div>
+
+    <div class="sim-test" x-show="stage === 3">
+        <p class="sim-note" x-text="hunt.staging"></p>
+        <x-bug-hunt />
+        <flux:button variant="primary" x-show="huntDone" x-on:click="ship()">Ship it</flux:button>
+    </div>
+
+    <div class="sim-ship" x-show="stage === 4">
+        <pre class="sim-editor"><code x-text="deploy"></code></pre>
+        <div x-show="shipped">
+            <dl class="sim-stats">
+                <div><dt>Delivered on</dt><dd>Day <span x-text="day"></span></dd></div>
+                <div><dt>Tasks finished</dt><dd x-text="project?.tasks.length"></dd></div>
+                <div><dt>Bugs that reached users</dt><dd>0</dd></div>
+            </dl>
+            <p class="sim-note">That was the sample version. The real one starts with an email.</p>
+            <div class="actions">
+                <flux:button icon="envelope" href="mailto:contact@prosperamutah.online?subject=Let%27s%20build%20something">Do this for real</flux:button>
+                <flux:button x-on:click="openSim()">Play again</flux:button>
+            </div>
+        </div>
+    </div>
+</flux:modal>
+
+<flux:modal name="resume" class="resume-modal">
+    <div class="resume-head">
+        <flux:heading size="lg" level="2">Resume</flux:heading>
+        <flux:button size="sm" icon="arrow-down-tray" href="/cv.pdf" download>Download PDF</flux:button>
+    </div>
+    <p class="resume-status" x-show="resumeStatus" x-text="resumeStatus" role="status"></p>
+    <div class="resume-pages" tabindex="0" aria-label="Resume pages"></div>
+</flux:modal>
+
+@livewireScripts
+@fluxScripts
 </body>
 </html>
